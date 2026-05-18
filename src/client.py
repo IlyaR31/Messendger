@@ -126,9 +126,12 @@ console.print("""[bold cyan] _   _
 |_| |_|\\_//n\\
     [/][dim]messenger[/]""")
 
+host = console.input("[bold cyan]Enter host:[/] ")
+port = console.input("[bold cyan]Enter port:[/] ")
+
 nickname = console.input("[bold cyan]Enter nickname:[/] ")
 
-sock, serv, cipher = open_connection("127.0.0.1", 5735, "127.0.0.1", nickname)
+sock, serv, cipher = open_connection(port, int(host), "127.0.0.1", nickname)
 
 stopped = threading.Event()
 
