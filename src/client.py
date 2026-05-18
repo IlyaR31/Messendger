@@ -14,6 +14,15 @@ console = Console()
 
 RSA_KEY_SIZE = 24 # Чтобы быстро
 
+def get_local_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip
+
 def key_exchange(sock):
     rsa_open_key, rsa_private_key = generate_keys(RSA_KEY_SIZE)
 
@@ -78,7 +87,7 @@ def open_connection(server, port, bind_host, nickname):
     serv.listen(1)
 
     send_string_encrypted(sock, json.dumps({
-        "host": bind_host, "port": bind_port, "nickname": nickname
+        "host": get_local_ip(), "port": bind_port, "nickname": nickname
     }), cipher)
 
     serv, _ = serv.accept()

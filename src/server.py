@@ -10,6 +10,15 @@ import time
 
 console = Console()
 
+def get_local_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip
+
 def key_exchange(sock):
     rsa_open_key = tuple(json.loads(receive_data(sock).decode()))
 
@@ -133,6 +142,8 @@ console.print("""[bold magenta] _   _
 | \\_/ |/o\\\\V7
 |_| |_|\\_//n\\
        [/][dim]server[/]""")
+
+console.print(f"[bold magenta] current host: {get_local_ip()}")
 
 while True:
     try:
