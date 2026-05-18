@@ -94,7 +94,7 @@ serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 serv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 host = console.input("[bold cyan]Enter host:[/] ")
 port = console.input("[bold cyan]Enter port:[/] ")
-serv.bind((host, port))
+serv.bind((host, int(port)))
 serv.listen(1)
 
 history = []
